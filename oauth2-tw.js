@@ -24,25 +24,22 @@ var getBearer = new Promise(function (accept, reject) {
       accept({accessToken, refreshToken, results})
     }
   )
-}).then(getStream)
+}).then(getStream) // it's not a stream because stream api doesn't work with app-only authentication
 
-// try twitter
-
-//getStream()
+// try twitter app-only auth
 function getStream (args) {
+	// set up twitter api client
   var T = new Twit({
     consumer_key: '4CM3Y0ZacO0SMAyxTAJiuGmFp',
     consumer_secret: 'nJsUI2FjnpV43NFD6ETf28wbRu14Wq7N901kfsDkjyVyTi7PxS',
     bearer_token: args.results.access_token
   })
-
-  var stream = T.get('search/tweets', {q: 'node.js'}, function(err, tweets, response) {
+	// use REST endpoint
+  T.get('search/tweets', {q: 'node.js'}, function(err, tweets, response) {
     console.error(err)
     debugger
     console.log('tweets', tweets)
     //console.log('response', response)
     //response.pipe(process.stdout)
   })
-
 }
-
