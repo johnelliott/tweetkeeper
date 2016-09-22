@@ -21,7 +21,6 @@ T.get('statuses/user_timeline', {screen_name: handle, count: 15})
       var {time, text, handle} = row
       console.log(time, text, handle)
       dbPool.query('INSERT INTO tweets (handle, time, text) values ($1, $2, $3)', [handle, time, text], function(err) {
-        debugger
         if (err) throw err
       })
     })
